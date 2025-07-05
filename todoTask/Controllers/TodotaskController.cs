@@ -54,11 +54,12 @@ namespace todoTask.Controllers
             var todotaskDomain = _mapper.Map<Todotask>(updateTodotaskDto);
             var updatetask = await todotaskRepository.UpdateAsync(id, todotaskDomain);
             if (updatetask == null)
+            {
                 return NotFound();
+            }
 
             var responseDto = _mapper.Map<UpdateTodotaskDto>(updatetask);
-            return Ok(responseDto);
-
+            return Ok(new { message = "Task Updated successfully" });
         }
 
         [HttpDelete]

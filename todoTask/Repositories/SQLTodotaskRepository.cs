@@ -41,7 +41,7 @@ namespace todoTask.Repositories
                 return null;
             }
 
-            existingTask.taskName = todotask.taskName;
+            //existingTask.taskName = todotask.taskName;
             existingTask.taskStatus = todotask.taskStatus;
 
             dbContext.Todotasks.Update(existingTask);
