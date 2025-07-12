@@ -9,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+//For image uploading
+builder.Services.AddHttpContextAccessor();
+
 #region cros
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowReactApp",
@@ -41,9 +44,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region DI
 builder.Services.AddScoped<ITodotaskRepository,SQLTodotaskRepository>();
+builder.Services.AddScoped<IimageRepository,LocalImageRepository>();
 
 #endregion
-
 
 #region JWT Configuration
 

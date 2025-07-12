@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using todoTask.Models.Domain;
 using todoTask.Models.DTO;
+using todoTask.Repositories;
 
 namespace todoTask.Controllers
 {
@@ -9,6 +10,13 @@ namespace todoTask.Controllers
     [ApiController]
     public class ImagesController : ControllerBase
     {
+        private readonly IimageRepository _imageRepository;
+
+        public ImagesController(IimageRepository imageRepository)
+        {
+            this._imageRepository = imageRepository;
+        }
+
         // Post: api/Images/Upload
         [HttpPost]
         [Route("Upload")]
@@ -28,8 +36,9 @@ namespace todoTask.Controllers
                 };
 
                 // User repsoitory to upload Image
+                await _imageRepository.Upload(imageDomainModel);
 
-
+                return Ok(imageDomainModel);
 
 
             }
