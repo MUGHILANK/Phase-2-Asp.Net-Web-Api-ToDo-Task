@@ -10,5 +10,8 @@ namespace todoTask.Data
         }
 
         public DbSet<Todotask> Todotasks { get; set; }
+
+        // Image entity
+        public DbSet<Image> Images { get; set; }
     }
 }

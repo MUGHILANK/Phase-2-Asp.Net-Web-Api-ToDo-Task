@@ -14,7 +14,9 @@ builder.Services.AddCors(options => {
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
         });
 });
 
@@ -24,10 +26,30 @@ builder.Services.AddCors(options => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Database
+
 builder.Services.AddDbContext<MKTodotaskDbContext>(option =>
 option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+#endregion
+
+#region Automapper
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+#endregion
+
+#region DI
 builder.Services.AddScoped<ITodotaskRepository,SQLTodotaskRepository>();
+
+#endregion
+
+
+#region JWT Configuration
+
+
+#endregion
+
 
 var app = builder.Build();
 

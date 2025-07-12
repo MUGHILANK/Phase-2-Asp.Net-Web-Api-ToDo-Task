@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using todoTask.Models.Domain;
@@ -9,6 +10,7 @@ namespace todoTask.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TodotaskController : ControllerBase
     {
         private IMapper _mapper;
@@ -19,7 +21,7 @@ namespace todoTask.Controllers
             this._mapper = mapper;
             this.todotaskRepository = todotaskRepository;
         }
-
+        // Post /api/Create
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddTodotaskDto addTodotaskDto)
         {
