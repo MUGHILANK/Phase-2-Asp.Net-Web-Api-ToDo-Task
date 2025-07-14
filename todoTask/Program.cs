@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using todoTask.Data;
 using todoTask.Repositories;
 using todoTask.Models;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 //For image uploading
 builder.Services.AddHttpContextAccessor();
 
-#region cros
+#region cros - Cross Origin Resource Sharing
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowReactApp",
         policy =>
@@ -44,6 +45,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region DI
 builder.Services.AddScoped<ITodotaskRepository,SQLTodotaskRepository>();
+
+//DI of the image Upload File 
 builder.Services.AddScoped<IimageRepository,LocalImageRepository>();
 
 #endregion
@@ -65,7 +68,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Image Static FIle COnfig, Now serving Static file From Our API
+app.UseStaticFiles(new StaticFileOptions
+{ 
+    // Physical Folder
+    FileProvider=new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Images")),
+    // Routing Path
+    RequestPath = "/Images"
+
+});
+
 app.UseAuthorization();
+
+//Cors Config
 app.UseCors("AllowReactApp");
 
 app.MapControllers();
