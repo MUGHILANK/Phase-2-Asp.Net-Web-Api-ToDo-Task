@@ -68,6 +68,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+#region Image Config
 // Image Static FIle COnfig, Now serving Static file From Our API
 app.UseStaticFiles(new StaticFileOptions
 { 
@@ -77,6 +78,8 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/Images"
 
 });
+
+#endregion
 
 app.UseAuthorization();
 
