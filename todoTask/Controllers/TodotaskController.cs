@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using todoTask.Models.Domain;
@@ -9,6 +10,9 @@ namespace todoTask.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // Jwt Authorize 
+    // Error 401: Unauthorized user
+    [Authorize]
     public class TodotaskController : ControllerBase
     {
         private IMapper _mapper;
@@ -21,6 +25,7 @@ namespace todoTask.Controllers
         }
 
         [HttpPost]
+        [Route("Create")]
         public async Task<IActionResult> Create([FromBody] AddTodotaskDto addTodotaskDto)
         {
             //Map DTO to Domain Model

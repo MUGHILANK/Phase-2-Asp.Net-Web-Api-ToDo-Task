@@ -48,8 +48,6 @@ namespace todoTask.Repositories
             await dbContext.SaveChangesAsync();
 
             return existingTask;
-
-
         }
 
        public async Task<Todotask> DeleteAsync(Guid id)
@@ -63,7 +61,5 @@ namespace todoTask.Repositories
             await dbContext.SaveChangesAsync();
             return todotask;
         }
-
-
     }
 }

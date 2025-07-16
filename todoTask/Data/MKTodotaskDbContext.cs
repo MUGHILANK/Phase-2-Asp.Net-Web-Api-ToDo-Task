@@ -5,7 +5,7 @@ namespace todoTask.Data
 {
     public class MKTodotaskDbContext : DbContext
     {
-        public MKTodotaskDbContext(DbContextOptions options) : base(options)
+        public MKTodotaskDbContext(DbContextOptions<MKTodotaskDbContext> options) : base(options)
         {
         }
 
