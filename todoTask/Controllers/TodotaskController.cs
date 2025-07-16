@@ -60,7 +60,7 @@ namespace todoTask.Controllers
             var updatetask = await todotaskRepository.UpdateAsync(id, todotaskDomain);
             if (updatetask == null)
             {
-                return NotFound();
+                return NotFound(new {message =  "Message: Data is not Found!" });
             }
 
             var responseDto = _mapper.Map<UpdateTodotaskDto>(updatetask);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using todoTask.Repositories.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region Dependency Injection
 builder.Services.AddScoped<ITodotaskRepository, SQLTodotaskRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 #endregion
 
 #region IDentity Core
