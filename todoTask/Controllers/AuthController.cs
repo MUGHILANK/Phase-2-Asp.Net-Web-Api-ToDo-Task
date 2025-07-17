@@ -8,6 +8,9 @@ using todoTask.Repositories.Tokens;
  * For Reader
  UserName: user@example.com
  Password: string
+
+  "username": "writer@gamil.com",
+  "password": "Writer@123",
  */
 namespace todoTask.Controllers
 {
@@ -37,7 +40,7 @@ namespace todoTask.Controllers
                 Email = registerRequestDto.Username
             };
 
-            //CreateAsync is inside of the user manager class
+            //CreateAsync is Function inside of the userManager class
             var identityResult =  await _userManager.CreateAsync(identityUser,registerRequestDto.Password);
             
             if (identityResult.Succeeded)
@@ -45,6 +48,7 @@ namespace todoTask.Controllers
                 // Add Roles to this User
                 if(registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
                 {
+                    //AddToRolesAsync also inside of the UserManager File 
                    identityResult = await _userManager.AddToRolesAsync(identityUser,registerRequestDto.Roles);
 
                     if (identityResult.Succeeded)
@@ -58,6 +62,7 @@ namespace todoTask.Controllers
             return BadRequest("Message: Something Went Wrong!");
         
         }
+
 
         // Post :/api/Auth/Login
         [HttpPost]

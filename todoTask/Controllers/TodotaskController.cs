@@ -12,7 +12,7 @@ namespace todoTask.Controllers
     [ApiController]
     // Jwt Authorize 
     // Error 401: Unauthorized user
-    [Authorize]
+    //[Authorize]
     public class TodotaskController : ControllerBase
     {
         private IMapper _mapper;
@@ -23,9 +23,10 @@ namespace todoTask.Controllers
             this._mapper = mapper;
             this.todotaskRepository = todotaskRepository;
         }
-
+        //POST /api/Todotask/Create
         [HttpPost]
         [Route("Create")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Create([FromBody] AddTodotaskDto addTodotaskDto)
         {
             //Map DTO to Domain Model
@@ -37,6 +38,7 @@ namespace todoTask.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Reader,Writer")]
         public async Task<IActionResult> GetAllData()
         {
             var todoTaskDomain = await todotaskRepository.GetAllDataAsync();
@@ -46,6 +48,7 @@ namespace todoTask.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Reader,Writer")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var getData = await todotaskRepository.GetById(id);
@@ -54,6 +57,7 @@ namespace todoTask.Controllers
         }
 
         [HttpPut("{id:Guid}")]
+        [Authorize(Roles = "Writer,Reader")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTodotaskDto updateTodotaskDto)
         {
             var todotaskDomain = _mapper.Map<Todotask>(updateTodotaskDto);
@@ -69,6 +73,7 @@ namespace todoTask.Controllers
 
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var todotask = await todotaskRepository.GetById(id);
